@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Mini formulario de Validacion</title>
+  </head>
+  <style type="text/css">
+    #contenedor{
+      width: 20%;
+      margin: 0 auto;
+      font-size: 18px; 
+    }
+    #contenedor input{
+      padding: 5px;
+
+    }
+    #contenedor textarea{
+    	height: 90px;
+    	width: 100%
+    }
+    p{
+      text-align: center;
+      font-size: 30px;
+    }
+  </style>
+  <body>
+  	<center><h1>Validacion de Cedula Ecuatoriana</h1></center>  
+  	<div id="contenedor">
+    <form id="form">
+      <label for="nombre">Nombre:</label>
+      <input type="text" name="nombre" id="nombre"><br></br>
+      <label for="apellido">Apellido:</label>
+      <input type="text" name="apellido" id="apellido"><br></br>
+      <label for="ced">Cedula:</label>
+      <input type="text" id="ced"><br></br>
+      <center> <button type="button" name="button" onclick="validar()">Validar</button><br></br>
+      <div id="salida"></div> </center>
+      <script type="text/javascript">
+      function validar() {
+      	var nombre=document.getElementById("nombre").value.trim();
+      	var apellido=document.getElementById("apellido").value.trim();
+        var cad = document.getElementById("ced").value.trim();
+        var total = 0;
+        var longitud = cad.length;
+        var longcheck = longitud - 1;
+
+        if (nombre==0) {
+        	alert("Porfavor ingrese un nombre");
+        	document.getElementById("nombre").focus();
+        	return false;
+        }
+
+        if (apellido==0) {
+        	alert("Porfavor ingrese un apellido");
+        	document.getElementById("apellido").focus();
+        	return false;
+        }
+
+        if (cad==0) {
+        	alert("Porfavor ingrese una cedula");
+        	document.getElementById("ced").focus();
+        	return false;
+        }
+
+        if (cad !== "" && longitud === 10){
+          for(i = 0; i < longcheck; i++){
+            if (i%2 === 0) {
+              var aux = cad.charAt(i) * 2;
+              if (aux > 9) aux -= 9;
+              total += aux;
+            } else {
+              total += parseInt(cad.charAt(i)); // parseInt o concatenará en lugar de sumar
+            }
+          }
+
+          total = total % 10 ? 10 - total % 10 : 0;
+
+          if (cad.charAt(longitud-1) == total) {
+            document.getElementById("salida").innerHTML = ("Su cedula es valida");
+          }else{
+            document.getElementById("salida").innerHTML = ("Su cedula es invalida");
+          }
+        }
+
+
+      }
+    </script>
+  </body>
+</html>
